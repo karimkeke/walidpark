@@ -1,0 +1,418 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard - ParkEase</title>
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Cdefs%3E%3ClinearGradient id='a' x1='0%25' y1='0%25' x2='100%25' y2='100%25'%3E%3Cstop offset='0%25' stop-color='%234361ee'/%3E%3Cstop offset='100%25' stop-color='%2348cae4'/%3E%3C/linearGradient%3E%3C/defs%3E%3Ccircle cx='50' cy='50' r='40' fill='white'/%3E%3Cpath d='M30 60V35c0-3 2-5 5-5h30c3 0 5 2 5 5v20c0 3-2 5-5 5H30z' fill='url(%23a)'/%3E%3Cpath d='M30 60v10c0 3 2 5 5 5h30c3 0 5-2 5-5V60H30' fill='url(%23a)' opacity='.8'/%3E%3Cpath d='M45 43v17h-5V43h5m15 0v17h-5V43h5m-7.5 0v17h-5V43h5' fill='white'/%3E%3C/svg%3E">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="assets/css/style.css">
+    <link rel="stylesheet" href="assets/css/dashboard-styles.css">
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="container header-container">
+            <div class="logo">
+                <a href="index.html">
+                    <svg class="logo-svg" viewBox="0 0 100 100" width="45" height="45">
+                        <defs>
+                            <linearGradient id="logo-gradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                                <stop offset="0%" stop-color="#4361ee" />
+                                <stop offset="100%" stop-color="#48cae4" />
+                            </linearGradient>
+                            <filter id="logo-shadow" height="130%">
+                                <feDropShadow dx="0" dy="3" stdDeviation="3" flood-color="#000" flood-opacity="0.2"/>
+                            </filter>
+                        </defs>
+                        <circle cx="50" cy="50" r="40" fill="white" filter="url(#logo-shadow)"/>
+                        <path d="M30 60 V35 C30 32 32 30 35 30 H65 C68 30 70 32 70 35 V55 C70 58 68 60 65 60 H30 Z" fill="url(#logo-gradient)" />
+                        <path d="M30 60 V70 C30 73 32 75 35 75 H65 C68 75 70 73 70 70 V60 H30" fill="url(#logo-gradient)" opacity="0.8" />
+                        <path d="M45 43 V60 H40 V43 H45 M60 43 V60 H55 V43 H60 M52.5 43 V60 H47.5 V43 H52.5" fill="white" />
+                    </svg>
+                    <h1>ParkEase</h1>
+                </a>
+            </div>
+            <nav>
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="parking-map.html">Find Parking</a></li>
+                    <li><a href="my_bookings.html">My Bookings</a></li>
+                    <li class="user-menu">
+                        <a href="#" id="user-menu-toggle">
+                            <span id="username-display">User</span>
+                            <i class="fas fa-chevron-down"></i>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a href="profile.html"><i class="fas fa-user"></i> Profile</a></li>
+                            <li><a href="settings.html"><i class="fas fa-cog"></i> Settings</a></li>
+                            <li><a href="#" id="logout-btn"><i class="fas fa-sign-out-alt"></i> Logout</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </nav>
+            <button id="mobile-menu-toggle" class="mobile-menu-toggle">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+        </div>
+    </header>
+    
+    <!-- Mobile Menu -->
+    <div class="mobile-menu">
+        <ul>
+            <li><a href="index.html">Home</a></li>
+            <li><a href="parking-map.html">Find Parking</a></li>
+            <li><a href="my_bookings.html">My Bookings</a></li>
+            <li><a href="profile.html">Profile</a></li>
+            <li><a href="settings.html">Settings</a></li>
+            <li><a href="#" id="mobile-logout-btn">Logout</a></li>
+        </ul>
+    </div>
+
+    <!-- Dashboard Content -->
+    <div class="dashboard">
+        <div class="container">
+            <!-- Dashboard Header -->
+            <div class="dashboard-header">
+                <h1>Welcome, <span id="dashboard-username">User</span>!</h1>
+                <a href="parking-map.html" class="btn btn-primary"><i class="fas fa-plus"></i> New Booking</a>
+            </div>
+            
+            <!-- Dashboard Stats -->
+            <div class="dashboard-stats">
+                <div class="stat-card primary">
+                    <div class="stat-icon">
+                        <i class="fas fa-ticket-alt"></i>
+                    </div>
+                    <div class="stat-info">
+                        <h3>Active Bookings</h3>
+                        <p class="number" data-count="2">2</p>
+                    </div>
+                </div>
+                
+                <div class="stat-card success">
+                    <div class="stat-icon">
+                        <i class="fas fa-history"></i>
+                    </div>
+                    <div class="stat-info">
+                        <h3>Total Bookings</h3>
+                        <p class="number" data-count="15">15</p>
+                    </div>
+                </div>
+                
+                <div class="stat-card warning">
+                    <div class="stat-icon">
+                        <i class="fas fa-wallet"></i>
+                    </div>
+                    <div class="stat-info">
+                        <h3>Amount Spent</h3>
+                        <p>$<span class="number" data-count="145">145</span></p>
+                    </div>
+                </div>
+                
+                <div class="stat-card danger">
+                    <div class="stat-icon">
+                        <i class="fas fa-star"></i>
+                    </div>
+                    <div class="stat-info">
+                        <h3>Favorite Spots</h3>
+                        <p class="number" data-count="3">3</p>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Recent Bookings Section -->
+            <section class="bookings-section">
+                <div class="section-header">
+                    <h2>Recent Bookings</h2>
+                    <a href="my_bookings.html" class="btn btn-outline">View All</a>
+                </div>
+                
+                <div class="table-responsive">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>Booking ID</th>
+                                <th>Location</th>
+                                <th>Spot</th>
+                                <th>Date</th>
+                                <th>Duration</th>
+                                <th>Status</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody id="recent-bookings-table">
+                            <!-- Bookings will be loaded here via JavaScript -->
+                        </tbody>
+                    </table>
+                </div>
+                
+                <div id="empty-bookings" class="empty-state" style="display: none;">
+                    <img src="https://cdn.pixabay.com/photo/2018/11/13/21/43/instagram-3814049_1280.png" alt="No bookings found">
+                    <h3>No Bookings Found</h3>
+                    <p>You haven't made any bookings yet. Start by finding a parking spot!</p>
+                    <a href="parking-map.html" class="btn btn-primary">Find Parking</a>
+                </div>
+            </section>
+            
+            <!-- Popular Locations Section -->
+            <section class="locations-section">
+                <div class="section-header">
+                    <h2>Popular Locations</h2>
+                </div>
+                
+                <div class="locations-grid">
+                    <div class="location-card">
+                        <div class="location-image">
+                            <img src="https://images.unsplash.com/photo-1573348722427-f1d6819fdf98?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="Downtown Parking">
+                            <div class="location-badge">Most Popular</div>
+                        </div>
+                        <div class="location-info">
+                            <h3>Downtown Parking</h3>
+                            <p>123 Main Street</p>
+                            <div class="location-details">
+                                <span><i class="fas fa-car"></i> 120 spots available</span>
+                                <span><i class="fas fa-dollar-sign"></i> From $2.50/hr</span>
+                            </div>
+                            <a href="parking-map.html?location=downtown" class="btn btn-primary btn-sm">View Spots</a>
+                        </div>
+                    </div>
+                    
+                    <div class="location-card">
+                        <div class="location-image">
+                            <img src="https://images.unsplash.com/photo-1590674899484-13d6c7094a9f?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="Shopping Mall Parking">
+                        </div>
+                        <div class="location-info">
+                            <h3>Shopping Mall</h3>
+                            <p>456 Plaza Avenue</p>
+                            <div class="location-details">
+                                <span><i class="fas fa-car"></i> 85 spots available</span>
+                                <span><i class="fas fa-dollar-sign"></i> From $3.00/hr</span>
+                            </div>
+                            <a href="parking-map.html?location=mall" class="btn btn-primary btn-sm">View Spots</a>
+                        </div>
+                    </div>
+                    
+                    <div class="location-card">
+                        <div class="location-image">
+                            <img src="https://images.unsplash.com/photo-1489307229055-9d55422662bd?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="Airport Parking">
+                            <div class="location-badge">New</div>
+                        </div>
+                        <div class="location-info">
+                            <h3>Airport Parking</h3>
+                            <p>789 Airport Road</p>
+                            <div class="location-details">
+                                <span><i class="fas fa-car"></i> 250 spots available</span>
+                                <span><i class="fas fa-dollar-sign"></i> From $5.00/hr</span>
+                            </div>
+                            <a href="parking-map.html?location=airport" class="btn btn-primary btn-sm">View Spots</a>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </div>
+
+    <!-- Footer Section -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-column">
+                    <div class="logo">
+                        <svg class="logo-svg" viewBox="0 0 100 100" width="40" height="40">
+                            <defs>
+                                <linearGradient id="footer-logo-gradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                                    <stop offset="0%" stop-color="#4361ee" />
+                                    <stop offset="100%" stop-color="#48cae4" />
+                                </linearGradient>
+                            </defs>
+                            <circle cx="50" cy="50" r="40" fill="white" />
+                            <path d="M30 60 V35 C30 32 32 30 35 30 H65 C68 30 70 32 70 35 V55 C70 58 68 60 65 60 H30 Z" fill="url(#footer-logo-gradient)" />
+                            <path d="M30 60 V70 C30 73 32 75 35 75 H65 C68 75 70 73 70 70 V60 H30" fill="url(#footer-logo-gradient)" opacity="0.8" />
+                            <path d="M45 43 V60 H40 V43 H45 M60 43 V60 H55 V43 H60 M52.5 43 V60 H47.5 V43 H52.5" fill="white" />
+                        </svg>
+                        <h3>ParkEase</h3>
+                    </div>
+                    <p>The smart parking solution that makes finding and booking parking spots effortless. Save time, reduce stress, and park with ease.</p>
+                    
+                    <div class="footer-social">
+                        <a href="#"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                    </div>
+                </div>
+                
+                <div class="footer-column">
+                    <h3>Quick Links</h3>
+                    <ul>
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="parking-map.html">Find Parking</a></li>
+                        <li><a href="my_bookings.html">My Bookings</a></li>
+                        <li><a href="profile.html">Profile</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-column">
+                    <h3>Contact Us</h3>
+                    <ul>
+                        <li><i class="fas fa-map-marker-alt"></i> 123 Parking Ave, City Center</li>
+                        <li><i class="fas fa-phone"></i> +1 (555) 123-4567</li>
+                        <li><i class="fas fa-envelope"></i> info@parkease.com</li>
+                    </ul>
+                </div>
+                
+                <div class="footer-column">
+                    <h3>Newsletter</h3>
+                    <p>Subscribe to our newsletter for updates and promotional offers.</p>
+                    <form class="footer-form">
+                        <input type="email" placeholder="Your email address" required>
+                        <button type="submit"><i class="fas fa-paper-plane"></i></button>
+                    </form>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                <p>&copy; 2023 ParkEase. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- JavaScript -->
+    <script src="assets/js/main.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Check if user is logged in
+            const isLoggedIn = localStorage.getItem('isLoggedIn') === 'true';
+            if (!isLoggedIn) {
+                // Redirect to login page if not logged in
+                window.location.href = 'login.html';
+                return;
+            }
+            
+            // Display username
+            const username = localStorage.getItem('username') || 'User';
+            document.getElementById('username-display').textContent = username;
+            document.getElementById('dashboard-username').textContent = username;
+            
+            // User menu toggle
+            const userMenuToggle = document.getElementById('user-menu-toggle');
+            const dropdownMenu = document.querySelector('.dropdown-menu');
+            
+            if (userMenuToggle) {
+                userMenuToggle.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    dropdownMenu.classList.toggle('active');
+                });
+                
+                // Close dropdown when clicking outside
+                document.addEventListener('click', function(e) {
+                    if (!userMenuToggle.contains(e.target) && !dropdownMenu.contains(e.target)) {
+                        dropdownMenu.classList.remove('active');
+                    }
+                });
+            }
+            
+            // Logout functionality
+            const logoutButtons = [
+                document.getElementById('logout-btn'), 
+                document.getElementById('mobile-logout-btn')
+            ];
+            
+            logoutButtons.forEach(button => {
+                if (button) {
+                    button.addEventListener('click', function(e) {
+                        e.preventDefault();
+                        
+                        // Clear login data from localStorage
+                        localStorage.removeItem('isLoggedIn');
+                        localStorage.removeItem('username');
+                        
+                        // Redirect to home page
+                        window.location.href = 'index.html';
+                    });
+                }
+            });
+            
+            // Load mock booking data
+            const mockBookings = [
+                {
+                    id: 'BK1234',
+                    location: 'Downtown Parking',
+                    spot: 'A-15',
+                    date: '2023-06-15',
+                    timeFrom: '09:00 AM',
+                    timeTo: '05:00 PM',
+                    duration: '8 hours',
+                    status: 'active'
+                },
+                {
+                    id: 'BK1235',
+                    location: 'Shopping Mall',
+                    spot: 'B-22',
+                    date: '2023-06-20',
+                    timeFrom: '10:00 AM',
+                    timeTo: '02:00 PM',
+                    duration: '4 hours',
+                    status: 'upcoming'
+                },
+                {
+                    id: 'BK1230',
+                    location: 'Airport Parking',
+                    spot: 'C-05',
+                    date: '2023-06-01',
+                    timeFrom: '08:00 AM',
+                    timeTo: '08:00 PM',
+                    duration: '12 hours',
+                    status: 'completed'
+                }
+            ];
+            
+            // Display bookings
+            const recentBookingsTable = document.getElementById('recent-bookings-table');
+            const emptyBookings = document.getElementById('empty-bookings');
+            
+            if (mockBookings.length > 0) {
+                mockBookings.forEach(booking => {
+                    const statusClass = booking.status === 'active' ? 'badge-success' : 
+                                       booking.status === 'upcoming' ? 'badge-primary' : 'badge-secondary';
+                    
+                    const row = document.createElement('tr');
+                    row.innerHTML = `
+                        <td>${booking.id}</td>
+                        <td>${booking.location}</td>
+                        <td>${booking.spot}</td>
+                        <td>${booking.date}</td>
+                        <td>${booking.duration}</td>
+                        <td><span class="badge ${statusClass}">${booking.status}</span></td>
+                        <td>
+                            <a href="view_booking.html?id=${booking.id}" class="btn-icon" title="View"><i class="fas fa-eye"></i></a>
+                            ${booking.status === 'active' ? `
+                                <a href="extend_booking.html?id=${booking.id}" class="btn-icon" title="Extend"><i class="fas fa-clock"></i></a>
+                            ` : ''}
+                        </td>
+                    `;
+                    
+                    recentBookingsTable.appendChild(row);
+                });
+                
+                // Hide empty state
+                if (emptyBookings) {
+                    emptyBookings.style.display = 'none';
+                }
+            } else {
+                // Show empty state
+                if (recentBookingsTable) {
+                    recentBookingsTable.style.display = 'none';
+                }
+                if (emptyBookings) {
+                    emptyBookings.style.display = 'flex';
+                }
+            }
+        });
+    </script>
+</body>
+</html> 

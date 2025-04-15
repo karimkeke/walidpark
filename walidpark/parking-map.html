@@ -1,0 +1,615 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Parking Map - ParkEase</title>
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Cdefs%3E%3ClinearGradient id='a' x1='0%25' y1='0%25' x2='100%25' y2='100%25'%3E%3Cstop offset='0%25' stop-color='%234361ee'/%3E%3Cstop offset='100%25' stop-color='%2348cae4'/%3E%3C/linearGradient%3E%3C/defs%3E%3Ccircle cx='50' cy='50' r='40' fill='white'/%3E%3Cpath d='M30 60V35c0-3 2-5 5-5h30c3 0 5 2 5 5v20c0 3-2 5-5 5H30z' fill='url(%23a)'/%3E%3Cpath d='M30 60v10c0 3 2 5 5 5h30c3 0 5-2 5-5V60H30' fill='url(%23a)' opacity='.8'/%3E%3Cpath d='M45 43v17h-5V43h5m15 0v17h-5V43h5m-7.5 0v17h-5V43h5' fill='white'/%3E%3C/svg%3E">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="assets/css/style.css">
+    <link rel="stylesheet" href="assets/css/dashboard-styles.css">
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="container header-container">
+            <div class="logo">
+                <a href="index.html">
+                    <svg class="logo-svg" viewBox="0 0 100 100" width="45" height="45">
+                        <defs>
+                            <linearGradient id="logo-gradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                                <stop offset="0%" stop-color="#4361ee" />
+                                <stop offset="100%" stop-color="#48cae4" />
+                            </linearGradient>
+                            <filter id="logo-shadow" height="130%">
+                                <feDropShadow dx="0" dy="3" stdDeviation="3" flood-color="#000" flood-opacity="0.2"/>
+                            </filter>
+                        </defs>
+                        <circle cx="50" cy="50" r="40" fill="white" filter="url(#logo-shadow)"/>
+                        <path d="M30 60 V35 C30 32 32 30 35 30 H65 C68 30 70 32 70 35 V55 C70 58 68 60 65 60 H30 Z" fill="url(#logo-gradient)" />
+                        <path d="M30 60 V70 C30 73 32 75 35 75 H65 C68 75 70 73 70 70 V60 H30" fill="url(#logo-gradient)" opacity="0.8" />
+                        <path d="M45 43 V60 H40 V43 H45 M60 43 V60 H55 V43 H60 M52.5 43 V60 H47.5 V43 H52.5" fill="white" />
+                    </svg>
+                    <h1>ParkEase</h1>
+                </a>
+            </div>
+            <nav>
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="parking-map.html" class="active">Find Parking</a></li>
+                    <li><a href="my_bookings.html">My Bookings</a></li>
+                    <li class="user-menu">
+                        <a href="#" id="user-menu-toggle">
+                            <span id="username-display">User</span>
+                            <i class="fas fa-chevron-down"></i>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a href="profile.html"><i class="fas fa-user"></i> Profile</a></li>
+                            <li><a href="settings.html"><i class="fas fa-cog"></i> Settings</a></li>
+                            <li><a href="#" id="logout-btn"><i class="fas fa-sign-out-alt"></i> Logout</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </nav>
+            <button id="mobile-menu-toggle" class="mobile-menu-toggle">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+        </div>
+    </header>
+    
+    <!-- Mobile Menu -->
+    <div class="mobile-menu">
+        <ul>
+            <li><a href="index.html">Home</a></li>
+            <li><a href="parking-map.html" class="active">Find Parking</a></li>
+            <li><a href="my_bookings.html">My Bookings</a></li>
+            <li><a href="profile.html">Profile</a></li>
+            <li><a href="settings.html">Settings</a></li>
+            <li><a href="#" id="mobile-logout-btn">Logout</a></li>
+        </ul>
+    </div>
+
+    <!-- Parking Map Content -->
+    <div class="dashboard">
+        <div class="container">
+            <!-- Dashboard Header -->
+            <div class="dashboard-header">
+                <h1>Parking Map</h1>
+                <div class="filter-buttons">
+                    <button class="btn btn-outline" id="filter-btn">
+                        <i class="fas fa-filter"></i> Filter
+                    </button>
+                    <button class="btn btn-primary" id="list-view-btn">
+                        <i class="fas fa-list"></i> List View
+                    </button>
+                </div>
+            </div>
+            
+            <!-- Map Legend -->
+            <div class="map-legend">
+                <div class="legend-item">
+                    <div class="legend-color available"></div>
+                    <span>Available</span>
+                </div>
+                <div class="legend-item">
+                    <div class="legend-color occupied"></div>
+                    <span>Occupied</span>
+                </div>
+                <div class="legend-item">
+                    <div class="legend-color reserved"></div>
+                    <span>Reserved</span>
+                </div>
+                <div class="legend-item">
+                    <div class="legend-color maintenance"></div>
+                    <span>Maintenance</span>
+                </div>
+            </div>
+            
+            <!-- Filter Section -->
+            <div class="filter-section" id="filter-section" style="display: none;">
+                <form class="filter-form">
+                    <div class="form-group">
+                        <label for="location">Location</label>
+                        <select id="location" class="form-control">
+                            <option value="downtown">Downtown Parking</option>
+                            <option value="mall">Shopping Mall</option>
+                            <option value="airport">Airport Parking</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="date">Date</label>
+                        <input type="date" id="date" class="form-control" value="2023-06-20">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="time-from">From</label>
+                        <input type="time" id="time-from" class="form-control" value="09:00">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="time-to">To</label>
+                        <input type="time" id="time-to" class="form-control" value="17:00">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="vehicle-type">Vehicle Type</label>
+                        <select id="vehicle-type" class="form-control">
+                            <option value="car">Car</option>
+                            <option value="suv">SUV</option>
+                            <option value="motorcycle">Motorcycle</option>
+                            <option value="handicap">Handicap Access</option>
+                        </select>
+                    </div>
+                    
+                    <button type="button" class="btn btn-primary" id="apply-filter-btn">Apply Filters</button>
+                </form>
+            </div>
+            
+            <!-- Parking Map Section -->
+            <section class="parking-map-section">
+                <div class="location-section">
+                    <h3 id="location-title">Downtown Parking</h3>
+                    <p>123 Main Street, City Center</p>
+                </div>
+                
+                <!-- Parking Grid -->
+                <div class="parking-map">
+                    <h2>Level 1</h2>
+                    <div class="parking-grid" id="level-1">
+                        <!-- Dynamic parking spots will be generated via JavaScript -->
+                    </div>
+                </div>
+                
+                <div class="parking-map">
+                    <h2>Level 2</h2>
+                    <div class="parking-grid" id="level-2">
+                        <!-- Dynamic parking spots will be generated via JavaScript -->
+                    </div>
+                </div>
+            </section>
+        </div>
+    </div>
+
+    <!-- Booking Modal -->
+    <div class="modal" id="booking-modal">
+        <div class="modal-content">
+            <span class="close-btn">&times;</span>
+            <h2>Book Parking Spot <span id="spot-number"></span></h2>
+            
+            <div class="spot-details">
+                <p><strong>Location:</strong> <span id="modal-location">Downtown Parking</span></p>
+                <p><strong>Level:</strong> <span id="modal-level">1</span></p>
+                <p><strong>Date:</strong> <span id="modal-date">2023-06-20</span></p>
+                <p><strong>Time:</strong> <span id="modal-time">09:00 AM - 05:00 PM</span></p>
+                <p><strong>Duration:</strong> <span id="modal-duration">8 hours</span></p>
+                <p><strong>Price:</strong> <span id="modal-price">$20.00</span></p>
+            </div>
+            
+            <form id="booking-form">
+                <div class="form-group">
+                    <label for="vehicle-number">Vehicle License Plate</label>
+                    <input type="text" id="vehicle-number" class="form-control" required>
+                </div>
+                
+                <div class="form-check">
+                    <input type="checkbox" id="terms-check" class="form-check-input" required>
+                    <label for="terms-check" class="form-check-label">I agree to the <a href="#">terms and conditions</a></label>
+                </div>
+                
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-outline" id="cancel-booking-btn">Cancel</button>
+                    <button type="submit" class="btn btn-primary" id="confirm-booking-btn">Confirm Booking</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Footer Section -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-column">
+                    <div class="logo">
+                        <svg class="logo-svg" viewBox="0 0 100 100" width="40" height="40">
+                            <defs>
+                                <linearGradient id="footer-logo-gradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                                    <stop offset="0%" stop-color="#4361ee" />
+                                    <stop offset="100%" stop-color="#48cae4" />
+                                </linearGradient>
+                            </defs>
+                            <circle cx="50" cy="50" r="40" fill="white" />
+                            <path d="M30 60 V35 C30 32 32 30 35 30 H65 C68 30 70 32 70 35 V55 C70 58 68 60 65 60 H30 Z" fill="url(#footer-logo-gradient)" />
+                            <path d="M30 60 V70 C30 73 32 75 35 75 H65 C68 75 70 73 70 70 V60 H30" fill="url(#footer-logo-gradient)" opacity="0.8" />
+                            <path d="M45 43 V60 H40 V43 H45 M60 43 V60 H55 V43 H60 M52.5 43 V60 H47.5 V43 H52.5" fill="white" />
+                        </svg>
+                        <h3>ParkEase</h3>
+                    </div>
+                    <p>The smart parking solution that makes finding and booking parking spots effortless. Save time, reduce stress, and park with ease.</p>
+                    
+                    <div class="footer-social">
+                        <a href="#"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                    </div>
+                </div>
+                
+                <div class="footer-column">
+                    <h3>Quick Links</h3>
+                    <ul>
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="parking-map.html">Find Parking</a></li>
+                        <li><a href="my_bookings.html">My Bookings</a></li>
+                        <li><a href="profile.html">Profile</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-column">
+                    <h3>Contact Us</h3>
+                    <ul>
+                        <li><i class="fas fa-map-marker-alt"></i> 123 Parking Ave, City Center</li>
+                        <li><i class="fas fa-phone"></i> +1 (555) 123-4567</li>
+                        <li><i class="fas fa-envelope"></i> info@parkease.com</li>
+                    </ul>
+                </div>
+                
+                <div class="footer-column">
+                    <h3>Newsletter</h3>
+                    <p>Subscribe to our newsletter for updates and promotional offers.</p>
+                    <form class="footer-form">
+                        <input type="email" placeholder="Your email address" required>
+                        <button type="submit"><i class="fas fa-paper-plane"></i></button>
+                    </form>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                <p>&copy; 2023 ParkEase. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- JavaScript -->
+    <script src="assets/js/main.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Check if user is logged in
+            const isLoggedIn = localStorage.getItem('isLoggedIn') === 'true';
+            
+            // Display username if logged in
+            if (isLoggedIn) {
+                const username = localStorage.getItem('username') || 'User';
+                document.getElementById('username-display').textContent = username;
+                
+                // User menu toggle
+                const userMenuToggle = document.getElementById('user-menu-toggle');
+                const dropdownMenu = document.querySelector('.dropdown-menu');
+                
+                if (userMenuToggle) {
+                    userMenuToggle.addEventListener('click', function(e) {
+                        e.preventDefault();
+                        dropdownMenu.classList.toggle('active');
+                    });
+                    
+                    // Close dropdown when clicking outside
+                    document.addEventListener('click', function(e) {
+                        if (!userMenuToggle.contains(e.target) && !dropdownMenu.contains(e.target)) {
+                            dropdownMenu.classList.remove('active');
+                        }
+                    });
+                }
+                
+                // Logout functionality
+                const logoutButtons = [
+                    document.getElementById('logout-btn'), 
+                    document.getElementById('mobile-logout-btn')
+                ];
+                
+                logoutButtons.forEach(button => {
+                    if (button) {
+                        button.addEventListener('click', function(e) {
+                            e.preventDefault();
+                            
+                            // Clear login data from localStorage
+                            localStorage.removeItem('isLoggedIn');
+                            localStorage.removeItem('username');
+                            
+                            // Redirect to home page
+                            window.location.href = 'index.html';
+                        });
+                    }
+                });
+            }
+            
+            // Filter toggle
+            const filterBtn = document.getElementById('filter-btn');
+            const filterSection = document.getElementById('filter-section');
+            
+            if (filterBtn && filterSection) {
+                filterBtn.addEventListener('click', function() {
+                    if (filterSection.style.display === 'none') {
+                        filterSection.style.display = 'block';
+                    } else {
+                        filterSection.style.display = 'none';
+                    }
+                });
+            }
+            
+            // Apply filters
+            const applyFilterBtn = document.getElementById('apply-filter-btn');
+            
+            if (applyFilterBtn) {
+                applyFilterBtn.addEventListener('click', function() {
+                    const location = document.getElementById('location').value;
+                    const locationTitles = {
+                        'downtown': 'Downtown Parking',
+                        'mall': 'Shopping Mall',
+                        'airport': 'Airport Parking'
+                    };
+                    
+                    document.getElementById('location-title').textContent = locationTitles[location] || 'Downtown Parking';
+                    
+                    // Hide filter section
+                    filterSection.style.display = 'none';
+                    
+                    // Regenerate parking spots (this is demo functionality)
+                    generateParkingSpots();
+                });
+            }
+            
+            // List view button (demo functionality)
+            const listViewBtn = document.getElementById('list-view-btn');
+            
+            if (listViewBtn) {
+                listViewBtn.addEventListener('click', function() {
+                    alert('List view would display parking spots in a list format. This is a demo functionality.');
+                });
+            }
+            
+            // Generate parking spots
+            function generateParkingSpots() {
+                const level1Grid = document.getElementById('level-1');
+                const level2Grid = document.getElementById('level-2');
+                
+                if (!level1Grid || !level2Grid) return;
+                
+                // Clear previous spots
+                level1Grid.innerHTML = '';
+                level2Grid.innerHTML = '';
+                
+                // Generate random spots for Level 1
+                for (let i = 1; i <= 20; i++) {
+                    const spotNumber = `A-${i < 10 ? '0' + i : i}`;
+                    const status = getRandomStatus();
+                    
+                    const spotElement = document.createElement('div');
+                    spotElement.className = `parking-spot ${status}`;
+                    spotElement.dataset.spot = spotNumber;
+                    spotElement.dataset.level = '1';
+                    spotElement.dataset.status = status;
+                    
+                    spotElement.innerHTML = `
+                        <span class="spot-number">${spotNumber}</span>
+                        ${status === 'available' ? '<button class="book-btn">Book</button>' : ''}
+                    `;
+                    
+                    level1Grid.appendChild(spotElement);
+                }
+                
+                // Generate random spots for Level 2
+                for (let i = 1; i <= 15; i++) {
+                    const spotNumber = `B-${i < 10 ? '0' + i : i}`;
+                    const status = getRandomStatus();
+                    
+                    const spotElement = document.createElement('div');
+                    spotElement.className = `parking-spot ${status}`;
+                    spotElement.dataset.spot = spotNumber;
+                    spotElement.dataset.level = '2';
+                    spotElement.dataset.status = status;
+                    
+                    spotElement.innerHTML = `
+                        <span class="spot-number">${spotNumber}</span>
+                        ${status === 'available' ? '<button class="book-btn">Book</button>' : ''}
+                    `;
+                    
+                    level2Grid.appendChild(spotElement);
+                }
+                
+                // Add event listeners to book buttons
+                const bookButtons = document.querySelectorAll('.book-btn');
+                
+                bookButtons.forEach(button => {
+                    button.addEventListener('click', function(e) {
+                        const spot = e.target.closest('.parking-spot');
+                        const spotNumber = spot.dataset.spot;
+                        const level = spot.dataset.level;
+                        
+                        showBookingModal(spotNumber, level);
+                    });
+                });
+                
+                // Add event listeners to occupied spots to show details
+                const occupiedSpots = document.querySelectorAll('.parking-spot.occupied, .parking-spot.reserved');
+                
+                occupiedSpots.forEach(spot => {
+                    spot.addEventListener('click', function() {
+                        alert(`This spot (${spot.dataset.spot}) is currently ${spot.dataset.status}.`);
+                    });
+                });
+            }
+            
+            // Helper function to get random status
+            function getRandomStatus() {
+                const statuses = ['available', 'occupied', 'reserved', 'maintenance'];
+                const weights = [0.6, 0.2, 0.15, 0.05]; // Weights to make available spots more common
+                
+                const random = Math.random();
+                let cumulativeWeight = 0;
+                
+                for (let i = 0; i < statuses.length; i++) {
+                    cumulativeWeight += weights[i];
+                    if (random < cumulativeWeight) {
+                        return statuses[i];
+                    }
+                }
+                
+                return 'available';
+            }
+            
+            // Booking modal functionality
+            const modal = document.getElementById('booking-modal');
+            const closeBtn = document.querySelector('.close-btn');
+            const cancelBookingBtn = document.getElementById('cancel-booking-btn');
+            
+            function showBookingModal(spotNumber, level) {
+                // Set modal details
+                document.getElementById('spot-number').textContent = spotNumber;
+                document.getElementById('modal-level').textContent = level;
+                
+                // Get date and time from filter or use defaults
+                const date = document.getElementById('date').value || '2023-06-20';
+                const timeFrom = document.getElementById('time-from').value || '09:00';
+                const timeTo = document.getElementById('time-to').value || '17:00';
+                
+                // Convert to more readable format
+                const formattedDate = new Date(date).toLocaleDateString('en-US', { 
+                    weekday: 'long', 
+                    year: 'numeric', 
+                    month: 'long', 
+                    day: 'numeric' 
+                });
+                
+                const formattedTimeFrom = formatTime(timeFrom);
+                const formattedTimeTo = formatTime(timeTo);
+                
+                document.getElementById('modal-date').textContent = formattedDate;
+                document.getElementById('modal-time').textContent = `${formattedTimeFrom} - ${formattedTimeTo}`;
+                
+                // Calculate duration and price
+                const fromHours = parseInt(timeFrom.split(':')[0]);
+                const toHours = parseInt(timeTo.split(':')[0]);
+                const duration = toHours - fromHours;
+                
+                document.getElementById('modal-duration').textContent = `${duration} hours`;
+                
+                // Simple price calculation: $2.50 per hour
+                const price = (duration * 2.5).toFixed(2);
+                document.getElementById('modal-price').textContent = `$${price}`;
+                
+                // Show modal
+                modal.style.display = 'block';
+            }
+            
+            // Helper function to format time
+            function formatTime(timeString) {
+                const [hours, minutes] = timeString.split(':');
+                const hour = parseInt(hours);
+                const ampm = hour >= 12 ? 'PM' : 'AM';
+                const hour12 = hour % 12 || 12;
+                
+                return `${hour12}:${minutes} ${ampm}`;
+            }
+            
+            // Close modal events
+            if (closeBtn) {
+                closeBtn.addEventListener('click', function() {
+                    modal.style.display = 'none';
+                });
+            }
+            
+            if (cancelBookingBtn) {
+                cancelBookingBtn.addEventListener('click', function() {
+                    modal.style.display = 'none';
+                });
+            }
+            
+            // Close modal when clicking outside
+            window.addEventListener('click', function(e) {
+                if (e.target === modal) {
+                    modal.style.display = 'none';
+                }
+            });
+            
+            // Booking form submission
+            const bookingForm = document.getElementById('booking-form');
+            
+            if (bookingForm) {
+                bookingForm.addEventListener('submit', function(e) {
+                    e.preventDefault();
+                    
+                    // Check if user is logged in
+                    if (!isLoggedIn) {
+                        alert('Please log in to book a parking spot.');
+                        window.location.href = 'login.html';
+                        return;
+                    }
+                    
+                    // Get booking details
+                    const spotNumber = document.getElementById('spot-number').textContent;
+                    const level = document.getElementById('modal-level').textContent;
+                    const date = document.getElementById('modal-date').textContent;
+                    const time = document.getElementById('modal-time').textContent;
+                    const duration = document.getElementById('modal-duration').textContent;
+                    const price = document.getElementById('modal-price').textContent;
+                    const vehicleNumber = document.getElementById('vehicle-number').value;
+                    
+                    // Create booking object (in a real app, this would be sent to a server)
+                    const booking = {
+                        id: 'BK' + Math.floor(1000 + Math.random() * 9000),
+                        location: document.getElementById('location-title').textContent,
+                        spot: spotNumber,
+                        level: level,
+                        date: date,
+                        time: time,
+                        duration: duration,
+                        price: price,
+                        vehicleNumber: vehicleNumber,
+                        status: 'upcoming'
+                    };
+                    
+                    // Store booking in localStorage (demo functionality)
+                    const bookings = JSON.parse(localStorage.getItem('bookings') || '[]');
+                    bookings.push(booking);
+                    localStorage.setItem('bookings', JSON.stringify(bookings));
+                    
+                    // Close modal
+                    modal.style.display = 'none';
+                    
+                    // Show success message
+                    alert(`Booking successful! Your booking ID is ${booking.id}`);
+                    
+                    // Regenerate parking spots to update availability
+                    generateParkingSpots();
+                });
+            }
+            
+            // Initialize parking spots on page load
+            generateParkingSpots();
+            
+            // Check URL parameters for location
+            const urlParams = new URLSearchParams(window.location.search);
+            const locationParam = urlParams.get('location');
+            
+            if (locationParam) {
+                const locationSelect = document.getElementById('location');
+                if (locationSelect) {
+                    locationSelect.value = locationParam;
+                }
+                
+                const locationTitles = {
+                    'downtown': 'Downtown Parking',
+                    'mall': 'Shopping Mall',
+                    'airport': 'Airport Parking'
+                };
+                
+                document.getElementById('location-title').textContent = locationTitles[locationParam] || 'Downtown Parking';
+                generateParkingSpots();
+            }
+        });
+    </script>
+</body>
+</html> 

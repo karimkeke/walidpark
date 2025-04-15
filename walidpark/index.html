@@ -1,0 +1,466 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ParkEase - Modern Parking Management System</title>
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Cdefs%3E%3ClinearGradient id='a' x1='0%25' y1='0%25' x2='100%25' y2='100%25'%3E%3Cstop offset='0%25' stop-color='%234361ee'/%3E%3Cstop offset='100%25' stop-color='%2348cae4'/%3E%3C/linearGradient%3E%3C/defs%3E%3Ccircle cx='50' cy='50' r='40' fill='white'/%3E%3Cpath d='M30 60V35c0-3 2-5 5-5h30c3 0 5 2 5 5v20c0 3-2 5-5 5H30z' fill='url(%23a)'/%3E%3Cpath d='M30 60v10c0 3 2 5 5 5h30c3 0 5-2 5-5V60H30' fill='url(%23a)' opacity='.8'/%3E%3Cpath d='M45 43v17h-5V43h5m15 0v17h-5V43h5m-7.5 0v17h-5V43h5' fill='white'/%3E%3C/svg%3E">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="assets/css/style.css">
+    <!-- Particles.js for hero background -->
+    <script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="container header-container">
+            <div class="logo">
+                <svg class="logo-svg" viewBox="0 0 100 100" width="45" height="45">
+                    <defs>
+                        <linearGradient id="logo-gradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                            <stop offset="0%" stop-color="#4361ee" />
+                            <stop offset="100%" stop-color="#48cae4" />
+                        </linearGradient>
+                        <filter id="logo-shadow" height="130%">
+                            <feDropShadow dx="0" dy="3" stdDeviation="3" flood-color="#000" flood-opacity="0.2"/>
+                        </filter>
+                    </defs>
+                    <circle cx="50" cy="50" r="40" fill="white" filter="url(#logo-shadow)"/>
+                    <path d="M30 60 V35 C30 32 32 30 35 30 H65 C68 30 70 32 70 35 V55 C70 58 68 60 65 60 H30 Z" fill="url(#logo-gradient)" />
+                    <path d="M30 60 V70 C30 73 32 75 35 75 H65 C68 75 70 73 70 70 V60 H30" fill="url(#logo-gradient)" opacity="0.8" />
+                    <path d="M45 43 V60 H40 V43 H45 M60 43 V60 H55 V43 H60 M52.5 43 V60 H47.5 V43 H52.5" fill="white" />
+                </svg>
+                <h1>ParkEase</h1>
+            </div>
+            <nav>
+                <ul>
+                    <li><a href="index.html" class="active">Home</a></li>
+                    <li><a href="#features">Features</a></li>
+                    <li><a href="#pricing">Pricing</a></li>
+                    <li><a href="login.html" class="nav-btn login-btn">Login / Sign Up</a></li>
+                    <li><a href="dashboard.html" class="nav-btn dashboard-btn" style="display: none;">Dashboard</a></li>
+                </ul>
+            </nav>
+            <button id="mobile-menu-toggle" class="mobile-menu-toggle">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+        </div>
+    </header>
+    
+    <!-- Mobile Menu -->
+    <div class="mobile-menu">
+        <ul>
+            <li><a href="index.html" class="active">Home</a></li>
+            <li><a href="#features">Features</a></li>
+            <li><a href="#pricing">Pricing</a></li>
+            <li><a href="login.html" class="nav-btn login-btn">Login / Sign Up</a></li>
+            <li><a href="dashboard.html" class="nav-btn dashboard-btn" style="display: none;">Dashboard</a></li>
+        </ul>
+    </div>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div id="particles-js"></div>
+        <div class="hero-overlay"></div>
+        
+        <div class="container">
+            <div class="hero-wrapper">
+                <div class="hero-content">
+                    <div class="hero-badge">Smart Parking Solution</div>
+                    <h1 class="hero-title">Find Perfect Parking in <span class="highlight">Seconds</span></h1>
+                    <p class="hero-subtitle">A smart parking management system that helps you find, book, and manage parking spaces effortlessly. Save time and avoid the stress of searching for parking spots.</p>
+                    
+                    <div class="hero-stats">
+                        <div class="stat-item">
+                            <div class="stat-value">98%</div>
+                            <div class="stat-label">Satisfaction Rate</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-value">12K+</div>
+                            <div class="stat-label">Happy Users</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-value">5000+</div>
+                            <div class="stat-label">Parking Spots</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="hero-image">
+                    <img src="https://images.unsplash.com/photo-1573348722427-f1d6819fdf98?ixlib=rb-4.0.3&auto=format&fit=crop&w=1350&q=80" alt="ParkEase Smart Parking" class="main-image">
+                    <div class="image-decoration"></div>
+                    
+                    <!-- Desktop floating cards (hidden on mobile) -->
+                    <div class="floating-card card-1 desktop-only">
+                        <i class="fas fa-map-marker-alt"></i>
+                        <span>Finding nearby spots</span>
+                    </div>
+                    <div class="floating-card card-2 desktop-only">
+                        <i class="fas fa-clock"></i>
+                        <span>Save up to 15 min</span>
+                    </div>
+                </div>
+                
+                <!-- Mobile floating cards (visible only on mobile) -->
+                <div class="mobile-feature-cards">
+                    <div class="floating-card">
+                        <i class="fas fa-map-marker-alt"></i>
+                        <span>Finding nearby spots</span>
+                    </div>
+                    <div class="floating-card">
+                        <i class="fas fa-clock"></i>
+                        <span>Save up to 15 min</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section id="features" class="features">
+        <div class="container">
+            <div class="section-title">
+                <h2>Why Choose ParkEase?</h2>
+                <p>Our comprehensive parking management system offers everything you need for a seamless parking experience.</p>
+            </div>
+            
+            <div class="features-grid">
+                <div class="feature-card">
+                    <i class="fas fa-search"></i>
+                    <h3>Easy Spot Finding</h3>
+                    <p>Quickly locate available parking spots in your desired location with our intuitive interface.</p>
+                </div>
+                
+                <div class="feature-card">
+                    <i class="fas fa-calendar-alt"></i>
+                    <h3>Advanced Booking</h3>
+                    <p>Reserve your parking spot in advance to ensure availability when you need it most.</p>
+                </div>
+                
+                <div class="feature-card">
+                    <i class="fas fa-credit-card"></i>
+                    <h3>Secure Payments</h3>
+                    <p>Process payments securely with multiple payment options for your convenience.</p>
+                </div>
+                
+                <div class="feature-card">
+                    <i class="fas fa-bell"></i>
+                    <h3>Smart Notifications</h3>
+                    <p>Receive timely notifications about your booking status, payment reminders, and more.</p>
+                </div>
+                
+                <div class="feature-card">
+                    <i class="fas fa-history"></i>
+                    <h3>Booking History</h3>
+                    <p>Access your complete booking history and manage your past and upcoming reservations.</p>
+                </div>
+                
+                <div class="feature-card">
+                    <i class="fas fa-chart-line"></i>
+                    <h3>Analytics Dashboard</h3>
+                    <p>For parking operators: gain valuable insights into parking trends and optimize your business.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- How it Works Section -->
+    <section id="how-it-works" class="how-it-works">
+        <div class="container">
+            <div class="section-header text-center">
+                <h2>How ParkEase Works</h2>
+                <p>Discover how easy it is to find and secure parking with our simple 4-step process.</p>
+            </div>
+
+            <div class="steps-container">
+                <div class="steps-progress-bar">
+                    <div class="progress-line" id="progress-line"></div>
+                </div>
+                
+                <div class="steps">
+                    <!-- Step 1 -->
+                    <div class="step" data-step="1">
+                        <div class="step-icon-container">
+                            <div class="step-number">1</div>
+                            <div class="step-icon">
+                                <i class="fas fa-user-plus"></i>
+                            </div>
+                        </div>
+                        
+                        <div class="step-content">
+                            <h3>Create an Account</h3>
+                            <p>Sign up in seconds with your email or social media accounts. Set up your profile and add your vehicle details for faster booking in the future.</p>
+                            <a href="register.html" class="step-link">Register now <i class="fas fa-chevron-right"></i></a>
+                        </div>
+                        
+                        <div class="step-image-container">
+                            <img src="https://images.unsplash.com/photo-1517292987719-0369a794ec0f?ixlib=rb-4.0.3&auto=format&fit=crop&w=1300&q=80" alt="Registration screen" class="step-image">
+                            <div class="step-image-decoration"></div>
+                        </div>
+                    </div>
+                    
+                    <!-- Step 2 -->
+                    <div class="step" data-step="2">
+                        <div class="step-icon-container">
+                            <div class="step-number">2</div>
+                            <div class="step-icon">
+                                <i class="fas fa-map-marker-alt"></i>
+                            </div>
+                        </div>
+                        
+                        <div class="step-content">
+                            <h3>Find a Parking Spot</h3>
+                            <p>Search for available parking spots near your destination. Filter by location, price, and amenities to find the perfect spot that meets your needs.</p>
+                            
+                            <div class="benefits">
+                                <span class="benefit-tag"><i class="fas fa-check"></i> Real-time availability</span>
+                                <span class="benefit-tag"><i class="fas fa-check"></i> Multiple locations</span>
+                                <span class="benefit-tag"><i class="fas fa-check"></i> Price comparison</span>
+                            </div>
+                        </div>
+                        
+                        <div class="step-image-container">
+                            <img src="https://cdn.pixabay.com/photo/2021/11/14/19/21/mobile-6795211_1280.jpg" alt="Find parking spot location map on mobile" class="step-image">
+                            <div class="step-image-decoration"></div>
+                        </div>
+                    </div>
+                    
+                    <!-- Step 3 -->
+                    <div class="step" data-step="3">
+                        <div class="step-icon-container">
+                            <div class="step-number">3</div>
+                            <div class="step-icon">
+                                <i class="fas fa-ticket-alt"></i>
+                            </div>
+                        </div>
+                        
+                        <div class="step-content">
+                            <h3>Book Your Spot</h3>
+                            <p>Reserve your chosen parking spot with just a few clicks. Enter your vehicle details and select the duration of your stay.</p>
+                            
+                            <div class="payment-methods">
+                                <i class="fab fa-cc-visa" title="Visa"></i>
+                                <i class="fab fa-cc-mastercard" title="Mastercard"></i>
+                                <i class="fab fa-cc-amex" title="American Express"></i>
+                                <i class="fab fa-cc-paypal" title="PayPal"></i>
+                                <i class="fab fa-apple-pay" title="Apple Pay"></i>
+                            </div>
+                        </div>
+                        
+                        <div class="step-image-container">
+                            <img src="https://images.unsplash.com/photo-1556741533-6e6a62bd8b49?ixlib=rb-4.0.3&auto=format&fit=crop&w=1300&q=80" alt="Booking confirmation screen" class="step-image">
+                            <div class="step-image-decoration"></div>
+                        </div>
+                    </div>
+                    
+                    <!-- Step 4 -->
+                    <div class="step" data-step="4">
+                        <div class="step-icon-container">
+                            <div class="step-number">4</div>
+                            <div class="step-icon">
+                                <i class="fas fa-car"></i>
+                            </div>
+                        </div>
+                        
+                        <div class="step-content">
+                            <h3>Park With Ease</h3>
+                            <p>Arrive at your parking spot, show your digital parking pass, and enjoy hassle-free parking. Receive notifications for parking time reminders.</p>
+                            <a href="parking-map.html" class="step-link">View available spots <i class="fas fa-chevron-right"></i></a>
+                        </div>
+                        
+                        <div class="step-image-container">
+                            <img src="https://images.unsplash.com/photo-1604063165585-e17e9c3c5561?ixlib=rb-4.0.3&auto=format&fit=crop&w=1300&q=80" alt="Parking with digital pass" class="step-image">
+                            <div class="step-image-decoration"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Pricing Section -->
+    <section id="pricing" class="pricing">
+        <div class="container">
+            <div class="section-header text-center">
+                <h2>Simple Transparent Pricing</h2>
+                <p>Choose the plan that works best for you and your parking needs.</p>
+            </div>
+
+            <div class="pricing-grid">
+                <!-- Basic Plan -->
+                <div class="pricing-card">
+                    <div class="pricing-header">
+                        <h3>Basic</h3>
+                        <div class="price">
+                            <span class="currency">$</span>
+                            <span class="amount">9</span>
+                            <span class="period">/month</span>
+                        </div>
+                        <p>Perfect for occasional parkers</p>
+                    </div>
+                    <div class="pricing-features">
+                        <ul>
+                            <li><i class="fas fa-check"></i> 5 parking bookings/month</li>
+                            <li><i class="fas fa-check"></i> Real-time availability</li>
+                            <li><i class="fas fa-check"></i> Basic booking history</li>
+                            <li><i class="fas fa-check"></i> Email support</li>
+                            <li class="disabled"><i class="fas fa-times"></i> Reservation holding</li>
+                            <li class="disabled"><i class="fas fa-times"></i> Priority booking</li>
+                        </ul>
+                    </div>
+                    <div class="pricing-action">
+                        <a href="register.html" class="btn-primary">Get Started</a>
+                    </div>
+                </div>
+                
+                <!-- Standard Plan -->
+                <div class="pricing-card popular">
+                    <div class="popular-badge">Most Popular</div>
+                    <div class="pricing-header">
+                        <h3>Standard</h3>
+                        <div class="price">
+                            <span class="currency">$</span>
+                            <span class="amount">19</span>
+                            <span class="period">/month</span>
+                        </div>
+                        <p>Ideal for regular commuters</p>
+                    </div>
+                    <div class="pricing-features">
+                        <ul>
+                            <li><i class="fas fa-check"></i> 15 parking bookings/month</li>
+                            <li><i class="fas fa-check"></i> Real-time availability</li>
+                            <li><i class="fas fa-check"></i> Complete booking history</li>
+                            <li><i class="fas fa-check"></i> 24/7 priority support</li>
+                            <li><i class="fas fa-check"></i> Reservation holding (1 hour)</li>
+                            <li class="disabled"><i class="fas fa-times"></i> Priority booking</li>
+                        </ul>
+                    </div>
+                    <div class="pricing-action">
+                        <a href="register.html" class="btn-primary">Get Started</a>
+                    </div>
+                </div>
+                
+                <!-- Premium Plan -->
+                <div class="pricing-card">
+                    <div class="pricing-header">
+                        <h3>Premium</h3>
+                        <div class="price">
+                            <span class="currency">$</span>
+                            <span class="amount">39</span>
+                            <span class="period">/month</span>
+                        </div>
+                        <p>For businesses and heavy users</p>
+                    </div>
+                    <div class="pricing-features">
+                        <ul>
+                            <li><i class="fas fa-check"></i> Unlimited parking bookings</li>
+                            <li><i class="fas fa-check"></i> Real-time availability</li>
+                            <li><i class="fas fa-check"></i> Detailed analytics</li>
+                            <li><i class="fas fa-check"></i> 24/7 dedicated support</li>
+                            <li><i class="fas fa-check"></i> Reservation holding (2 hours)</li>
+                            <li><i class="fas fa-check"></i> Priority booking</li>
+                        </ul>
+                    </div>
+                    <div class="pricing-action">
+                        <a href="register.html" class="btn-primary">Get Started</a>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="pricing-notes">
+                <p>All plans include secure payment processing and our 30-day satisfaction guarantee.</p>
+                <p>Need a custom plan for your business? <a href="mailto:sales@parkease.com">Email our sales team</a> for enterprise pricing.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer Section -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-column">
+                    <div class="logo">
+                        <svg class="logo-svg" viewBox="0 0 100 100" width="40" height="40">
+                            <defs>
+                                <linearGradient id="footer-logo-gradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                                    <stop offset="0%" stop-color="#4361ee" />
+                                    <stop offset="100%" stop-color="#48cae4" />
+                                </linearGradient>
+                            </defs>
+                            <circle cx="50" cy="50" r="40" fill="white" />
+                            <path d="M30 60 V35 C30 32 32 30 35 30 H65 C68 30 70 32 70 35 V55 C70 58 68 60 65 60 H30 Z" fill="url(#footer-logo-gradient)" />
+                            <path d="M30 60 V70 C30 73 32 75 35 75 H65 C68 75 70 73 70 70 V60 H30" fill="url(#footer-logo-gradient)" opacity="0.8" />
+                            <path d="M45 43 V60 H40 V43 H45 M60 43 V60 H55 V43 H60 M52.5 43 V60 H47.5 V43 H52.5" fill="white" />
+                        </svg>
+                        <h3>ParkEase</h3>
+                    </div>
+                    <p>The smart parking solution that makes finding and booking parking spots effortless. Save time, reduce stress, and park with ease.</p>
+                    
+                    <div class="footer-social">
+                        <a href="#"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                    </div>
+                </div>
+                
+                <div class="footer-column">
+                    <h3>Quick Links</h3>
+                    <ul>
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="#features">Features</a></li>
+                        <li><a href="#pricing">Pricing</a></li>
+                        <li><a href="login.html">Login</a></li>
+                        <li><a href="register.html">Register</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-column">
+                    <h3>Contact Us</h3>
+                    <ul>
+                        <li><i class="fas fa-map-marker-alt"></i> 123 Parking Ave, City Center</li>
+                        <li><i class="fas fa-phone"></i> <a href="tel:+15551234567">+1 (555) 123-4567</a></li>
+                        <li><i class="fas fa-envelope"></i> <a href="mailto:info@parkease.com">info@parkease.com</a></li>
+                        <li><i class="fas fa-headset"></i> <a href="mailto:support@parkease.com">support@parkease.com</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-column">
+                    <h3>Newsletter</h3>
+                    <p>Subscribe to our newsletter for updates and promotional offers.</p>
+                    <form class="footer-form">
+                        <input type="email" placeholder="Your email address" required>
+                        <button type="submit"><i class="fas fa-paper-plane"></i></button>
+                    </form>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                <p>&copy; 2023 ParkEase. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- JavaScript -->
+    <script src="assets/js/main.js"></script>
+    <script>
+        // Check if user is logged in from localStorage
+        document.addEventListener('DOMContentLoaded', function() {
+            const isLoggedIn = localStorage.getItem('isLoggedIn') === 'true';
+            const loginBtn = document.querySelectorAll('.login-btn');
+            const dashboardBtn = document.querySelectorAll('.dashboard-btn');
+            
+            loginBtn.forEach(btn => {
+                btn.style.display = isLoggedIn ? 'none' : 'block';
+            });
+            
+            dashboardBtn.forEach(btn => {
+                btn.style.display = isLoggedIn ? 'block' : 'none';
+            });
+        });
+    </script>
+</body>
+</html> 
